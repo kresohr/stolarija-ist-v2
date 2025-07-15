@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 interface HeroProps {
@@ -12,7 +13,10 @@ const Hero = ({
   subtitle = "Kvalitetna stolarija za Vaš dom",
 }: HeroProps) => {
   return (
-    <section className="relative h-[calc(100vh-68px)] md:h-[calc(100vh-73px)] overflow-hidden">
+    <section
+      id="top"
+      className="relative h-[calc(100vh-68px)] md:h-[calc(100vh-73px)] overflow-hidden"
+    >
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
