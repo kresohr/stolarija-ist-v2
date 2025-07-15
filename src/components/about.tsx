@@ -34,7 +34,10 @@ const About = ({
   ],
 }: AboutProps) => {
   return (
-    <section className="h-[calc(100vh-68px)] md:h-[calc(100vh-73px)] flex items-center justify-center bg-gray-50">
+    <section
+      id="about"
+      className="h-[calc(100vh-68px)] md:h-[calc(100vh-73px)] flex items-center justify-center bg-gray-50"
+    >
       <div className="container mx-auto px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-4 md:mb-16">
