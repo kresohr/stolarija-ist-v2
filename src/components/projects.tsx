@@ -24,7 +24,7 @@ const Projects = ({
       title: "Kuhinjska stolarija",
     },
     {
-      src: "/project2.jpg",
+      src: "/projects2.webp",
       alt: "Projekt 2",
       title: "Spavaća soba",
     },
@@ -85,7 +85,10 @@ const Projects = ({
   };
 
   return (
-    <section className="h-[calc(100vh-68px)] md:h-[calc(100vh-73px)] flex items-center justify-center bg-white">
+    <section
+      id="projects"
+      className="h-[calc(100vh-68px)] md:h-[calc(100vh-73px)] flex items-center justify-center bg-white"
+    >
       <div className="container mx-auto px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8 md:mb-12">
@@ -98,14 +101,14 @@ const Projects = ({
           </div>
 
           <div className="relative max-w-4xl mx-auto">
-            <div className="relative overflow-hidden rounded-lg shadow-lg bg-gray-100">
+            <div className="relative overflow-hidden rounded-lg shadow-lg bg-gray-100 w-64 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] aspect-square mx-auto">
               <div
-                className="flex transition-transform duration-500 ease-in-out"
+                className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
                 {images.map((image, index) => (
-                  <div key={index} className="w-full flex-shrink-0">
-                    <div className="relative aspect-[16/10] w-full">
+                  <div key={index} className="w-full h-full flex-shrink-0">
+                    <div className="relative w-full h-full">
                       <img
                         src={image.src}
                         alt={image.alt}
@@ -140,6 +143,7 @@ const Projects = ({
                 <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
               </button>
             </div>
+
             <div className="flex justify-center mt-6 space-x-2">
               {images.map((_, index) => (
                 <button
