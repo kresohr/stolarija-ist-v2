@@ -14,7 +14,7 @@ interface AboutProps {
 const About = ({
   title = "O nama",
   subtitle = "Više od 20 godina iskustva u proizvodnji stolarije",
-  description = "Stolarija IST je obiteljska tvrtka koja se bavi proizvodnjom i ugradnjom kvalitetne stolarije. Koristimo najkvalitetnije materijale i moderne tehnike kako bi vašem domu ili poslovnom prostoru pružili toplinu, sigurnost i eleganciju.",
+  description = "Stolarija IST je obiteljska tvrtka koja se bavi proizvodnjom i ugradnjom kvalitetne drvene stolarije. Koristimo najkvalitetnije materijale i moderne tehnike kako bi vašem domu ili poslovnom prostoru pružili toplinu, sigurnost i eleganciju.",
   features = [
     {
       title: "Kvaliteta",
@@ -29,7 +29,7 @@ const About = ({
     {
       title: "Pouzdanost",
       description:
-        "Garantujemo kvalitetu našeg rada i poštujemo dogovorene rokove",
+        "Garantiramo kvalitetu našeg rada i poštujemo dogovorene rokove",
     },
   ],
 }: AboutProps) => {
