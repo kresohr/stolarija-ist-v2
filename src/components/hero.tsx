@@ -1,4 +1,5 @@
 "use client";
+import { smoothScrollTo } from "@/lib/scroll";
 import React from "react";
 
 interface HeroProps {
@@ -12,6 +13,10 @@ const Hero = ({
   title = "Stolarija IST",
   subtitle = "Kvalitetna stolarija za Vaš dom",
 }: HeroProps) => {
+  const handleContactClick = () => {
+    smoothScrollTo("footer");
+  };
+
   return (
     <section
       id="top"
@@ -37,6 +42,13 @@ const Hero = ({
           <p className="text-lg md:text-xl lg:text-2xl font-light opacity-90 max-w-2xl mx-auto">
             {subtitle}
           </p>
+
+          <a
+            onClick={handleContactClick}
+            className="inline-block cursor-pointer text-white bg-[#101828] hover:bg-[#2b3444]  hover:text-white font-semibold py-3 px-8 mt-10 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+          >
+            Kontakt
+          </a>
         </div>
       </div>
     </section>

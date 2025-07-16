@@ -24,6 +24,7 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+import { smoothScrollTo } from "@/lib/scroll";
 
 interface MenuItem {
   title: string;
@@ -68,31 +69,8 @@ const Navbar = ({
 }: NavbarProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  const smoothScrollTo = (elementId: string) => {
-    const element = document.getElementById(elementId);
-    if (element) {
-      const isMobile = window.innerWidth < 1024;
-      const navbarHeight = isMobile ? 68 : 73;
-
-      const mainContainer = document.querySelector("main");
-      if (mainContainer) {
-        const elementPosition = element.offsetTop - navbarHeight;
-        mainContainer.scrollTo({
-          top: elementPosition,
-          behavior: "smooth",
-        });
-      } else {
-        const elementPosition = element.offsetTop - navbarHeight;
-        window.scrollTo({
-          top: elementPosition,
-          behavior: "smooth",
-        });
-      }
-
-      if (isMobile) {
-        setIsSheetOpen(false);
-      }
-    }
+  const handleSmoothScroll = (elementId: string) => {
+    smoothScrollTo(elementId, () => setIsSheetOpen(false));
   };
 
   const SubMenuLink = ({ item }: { item: MenuItem }) => {
@@ -100,7 +78,7 @@ const Navbar = ({
       e.preventDefault();
       if (item.url.startsWith("#")) {
         const sectionId = item.url.substring(1);
-        smoothScrollTo(sectionId);
+        handleSmoothScroll(sectionId);
       } else {
         setIsSheetOpen(false);
         window.location.href = item.url;
@@ -131,7 +109,7 @@ const Navbar = ({
       e.preventDefault();
       if (item.url.startsWith("#")) {
         const sectionId = item.url.substring(1);
-        smoothScrollTo(sectionId);
+        handleSmoothScroll(sectionId);
       } else {
         window.location.href = item.url;
       }
@@ -172,7 +150,7 @@ const Navbar = ({
       e.preventDefault();
       if (item.url.startsWith("#")) {
         const sectionId = item.url.substring(1);
-        smoothScrollTo(sectionId);
+        handleSmoothScroll(sectionId);
       } else {
         setIsSheetOpen(false);
         window.location.href = item.url;
@@ -218,7 +196,7 @@ const Navbar = ({
     e.preventDefault();
     if (logo.url.startsWith("#")) {
       const sectionId = logo.url.substring(1);
-      smoothScrollTo(sectionId);
+      handleSmoothScroll(sectionId);
     } else {
       window.location.href = logo.url;
     }
@@ -226,7 +204,7 @@ const Navbar = ({
 
   const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    smoothScrollTo("footer");
+    handleSmoothScroll("footer");
   };
 
   return (
