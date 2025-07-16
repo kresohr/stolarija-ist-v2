@@ -16,32 +16,37 @@ interface ProjectsProps {
 
 const Projects = ({
   title = "Projekti",
-  subtitle = "Pogledajte naše najnovije radove i projekte",
+  subtitle = "Pogledajte neke od naših radova i projekata",
   images = [
     {
       src: "/project1.jpg",
-      alt: "Projekt 1",
-      title: "Kuhinjska stolarija",
-    },
-    {
-      src: "/projects2.webp",
-      alt: "Projekt 2",
-      title: "Spavaća soba",
+      alt: "Kuhinje po mjeri",
+      title: "Kuhinje po mjeri",
     },
     {
       src: "/project3.jpg",
       alt: "Projekt 3",
-      title: "Dnevni boravak",
+      title: "Uređenje Hotela Central Zagreb",
     },
     {
       src: "/project4.jpg",
       alt: "Projekt 4",
-      title: "Uredski prostor",
+      title: "Vanjski pregradni paneli",
     },
     {
       src: "/project5.jpg",
-      alt: "Projekt 5",
-      title: "Garderoba",
+      alt: "Drveni stolovi",
+      title: "Drveni stolovi",
+    },
+    {
+      src: "/project6.jpg",
+      alt: "Harmonika vrata",
+      title: "Harmonika vrata",
+    },
+    {
+      src: "/project2.jpg",
+      alt: "Ormari po mjeri",
+      title: "Ormari po mjeri",
     },
   ],
 }: ProjectsProps) => {
@@ -77,7 +82,7 @@ const Projects = ({
         clearInterval(autoPlayRef.current);
       }
     };
-  }, [autoPlay, currentIndex]);
+  }, [autoPlay, currentIndex, nextSlide]);
 
   const handleUserInteraction = (action: () => void) => {
     setAutoPlay(false);
