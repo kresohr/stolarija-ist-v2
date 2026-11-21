@@ -11,14 +11,14 @@ const steps = [
   {
     number: "02",
     icon: Ruler,
-    title: "Izmjera na lokaciji",
-    description: "Dolazimo na vašu lokaciju radi precizne izmjere prostora kako bi svaki element sjeo točno u milimetar.",
+    title: "Mjerenje na licu mjesta",
+    description: "Dolazimo na vašu lokaciju radi preciznog mjerenja prostora kako bi svaki element sjeo točno u milimetar.",
   },
   {
     number: "03",
     icon: Cog,
     title: "Radionička izrada",
-    description: "U našoj radionici u Piškorevcima probrano drvo krojimo, obrađujemo i ručno finiširamo ekološkim uljima i lakovima.",
+    description: "U našoj radionici u Piškorevcima probrano drvo krojimo, obrađujemo i ručno finiširamo visoko kvalitetnim uljima i lakovima.",
   },
   {
     number: "04",
@@ -30,7 +30,7 @@ const steps = [
 
 export const Process = () => {
   return (
-    <section id="process" className="py-16 sm:py-24 bg-[#F4EFEB] border-b border-[#E7DFD5]">
+    <section id="proces" className="py-16 sm:py-24 bg-[#FDFBF7] border-b border-[#E7DFD5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">

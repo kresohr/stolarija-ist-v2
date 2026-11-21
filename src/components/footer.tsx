@@ -20,7 +20,7 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer id="location" className="site-footer-optimized bg-[#1C1917] text-[#F5F5F4] border-t border-[#292524]">
+    <footer id="lokacija" className="site-footer-optimized bg-[#1C1917] text-[#F5F5F4] border-t border-[#292524]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           

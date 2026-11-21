@@ -20,7 +20,7 @@ export const Hero = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-[#57534E] leading-relaxed max-w-2xl font-normal">
-              Spajamo prirodnu toplinu masivnog slavonskog hrasta s modernom preciznošću. Izrađujemo kuhinje, ormare, masivne stolove i unikatna vrata prilagođena svakom centimetru vašeg prostora.
+              Spajamo toplinu prirodnih materijala s modernom preciznošću. Izrađujemo kuhinje, ormare, masivne stolove, unikatna vrata i još mnogo toga prilagođeno vašem prostoru.
             </p>
 
             {/* Quick Proof Badges */}
@@ -42,7 +42,7 @@ export const Hero = () => {
             {/* Action Buttons */}
             <div className="pt-4 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
               <a
-                href="#contact"
+                href="#kontakt"
                 className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-md bg-[#1C1917] text-[#FDFBF7] font-semibold text-base hover:bg-[#C28E58] hover:text-[#1C1917] transition-all duration-200 shadow-md hover:shadow-lg"
               >
                 <span>Zatražite besplatan izračun</span>

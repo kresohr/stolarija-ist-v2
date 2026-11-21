@@ -82,7 +82,7 @@ export const Projects = () => {
   });
 
   return (
-    <section id="projects" className="py-16 sm:py-24 bg-[#FDFBF7] border-b border-[#E7DFD5]">
+    <section id="radovi" className="py-16 sm:py-24 bg-[#F4EFEB] border-b border-[#E7DFD5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -100,7 +100,7 @@ export const Projects = () => {
           </div>
 
           <a
-            href="#contact"
+            href="#kontakt"
             className="inline-flex items-center gap-2 text-sm font-semibold text-[#78350F] hover:text-[#C28E58] transition-colors"
           >
             <span>Trebate sličan projekt? Javite nam se</span>
@@ -168,7 +168,7 @@ export const Projects = () => {
 
                 <div className="pt-3 border-t border-[#F4EFEB]">
                   <a
-                    href="#contact"
+                    href="#kontakt"
                     className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1C1917] group-hover:text-[#C28E58] transition-colors"
                   >
                     <span>Zatražite ponudu za sličan rad</span>

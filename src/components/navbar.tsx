@@ -5,11 +5,11 @@ import Image from "next/image";
 import { Phone, Mail, MapPin, Menu, X, ArrowUpRight } from "lucide-react";
 
 const navLinks = [
-  { label: "O nama", href: "#about" },
-  { label: "Usluge", href: "#services" },
-  { label: "Radovi", href: "#projects" },
-  { label: "Proces", href: "#process" },
-  { label: "Lokacija", href: "#location" },
+  { label: "O nama", href: "#o-nama" },
+  { label: "Usluge", href: "#usluge" },
+  { label: "Radovi", href: "#radovi" },
+  { label: "Proces", href: "#proces" },
+  { label: "Lokacija", href: "#lokacija" },
 ];
 
 export const Navbar = () => {
@@ -106,7 +106,7 @@ export const Navbar = () => {
           {/* CTA Button */}
           <div className="hidden lg:flex items-center">
             <a
-              href="#contact"
+              href="#kontakt"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-[#1C1917] text-[#FDFBF7] text-sm font-semibold hover:bg-[#C28E58] hover:text-[#1C1917] transition-all duration-200 shadow-sm"
             >
               <span>Zatražite ponudu</span>
@@ -143,7 +143,7 @@ export const Navbar = () => {
             ))}
             <div className="pt-3 border-t border-[#E7DFD5] space-y-3">
               <a
-                href="#contact"
+                href="#kontakt"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-md bg-[#1C1917] text-[#FDFBF7] font-semibold text-sm hover:bg-[#C28E58] hover:text-[#1C1917] transition-colors"
               >

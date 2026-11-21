@@ -4,15 +4,15 @@ import { TreePine, Hammer, ShieldCheck } from "lucide-react";
 const pillars = [
   {
     icon: TreePine,
-    title: "Prirodno i probrano drvo",
+    title: "Materijali najviše kvalitete",
     description:
-      "Koristimo prvorazredni slavonski hrast, jasen, bukvu i orah, pažljivo sušeno i pripremljeno za dugovječnost bez deformacija.",
+      "Koristimo materijale najviše kvalitete u prilagodbi s kupčevim željama i budžetom.",
   },
   {
     icon: Hammer,
     title: "Tradicionalna izrada & preciznost",
     description:
-      "Svaki spoj i obrada prolaze kroz ruke iskusnih majstora. Ne radimo serijski; svaki komad je unikatan projekt izrađen točno po vašem prostoru.",
+      "Ne radimo serijski, već je svaki komad unikatan projekt izrađen točno po vašem prostoru.",
   },
   {
     icon: ShieldCheck,
@@ -24,7 +24,7 @@ const pillars = [
 
 export const About = () => {
   return (
-    <section id="about" className="py-16 sm:py-24 bg-[#F4EFEB] border-b border-[#E7DFD5]">
+    <section id="o-nama" className="py-16 sm:py-24 bg-[#F4EFEB] border-b border-[#E7DFD5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -33,7 +33,7 @@ export const About = () => {
             Tradicija &amp; Vrijednosti
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1C1917] tracking-tight">
-            Obiteljska stolarija s tradicijom dužom od dva desetljeća
+            Obiteljska tradicija proizvodnje drvene stolarije koja traje već više od 20 godina
           </h2>
           <p className="text-base sm:text-lg text-[#57534E] leading-relaxed">
             Stolarija IST nastala je u Piškorevcima s jednostavnim ciljem: vratiti pravu vrijednost i trajnost drvenom namještaju. Danas opremamo obiteljske domove, hotele i poslovne prostore diljem Hrvatske, čuvajući duh izvorne slavonske drvodjeljske tradicije.
