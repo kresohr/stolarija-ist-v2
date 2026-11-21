@@ -1,325 +1,167 @@
 "use client";
-import { useState } from "react";
-import { Menu } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-  SheetClose,
-} from "@/components/ui/sheet";
-import { smoothScrollTo } from "@/lib/scroll";
 
-interface MenuItem {
-  title: string;
-  url: string;
-  description?: string;
-  icon?: React.ReactNode;
-  items?: MenuItem[];
-}
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import { Phone, Mail, MapPin, Menu, X, ArrowUpRight } from "lucide-react";
 
-interface NavbarProps {
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
-  menu?: MenuItem[];
-  auth?: {
-    login: {
-      title: string;
-      url: string;
+const navLinks = [
+  { label: "O nama", href: "#about" },
+  { label: "Usluge", href: "#services" },
+  { label: "Radovi", href: "#projects" },
+  { label: "Proces", href: "#process" },
+  { label: "Lokacija", href: "#location" },
+];
+
+export const Navbar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
     };
-    signup: {
-      title: string;
-      url: string;
-    };
-  };
-}
-
-const Navbar = ({
-  logo = {
-    url: "#top",
-    src: "/ist-logo.png",
-    alt: "logo",
-    title: "Stolarija IST",
-  },
-  menu = [
-    { title: "Početna", url: "#top" },
-    { title: "O nama", url: "#about" },
-    { title: "Projekti", url: "#projects" },
-  ],
-}: NavbarProps) => {
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
-
-  const handleSmoothScroll = (elementId: string) => {
-    smoothScrollTo(elementId, () => setIsSheetOpen(false));
-  };
-
-  const SubMenuLink = ({ item }: { item: MenuItem }) => {
-    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-      e.preventDefault();
-      if (item.url.startsWith("#")) {
-        const sectionId = item.url.substring(1);
-        handleSmoothScroll(sectionId);
-      } else {
-        setIsSheetOpen(false);
-        window.location.href = item.url;
-      }
-    };
-
-    return (
-      <a
-        className="flex flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-accent-foreground cursor-pointer"
-        href={item.url}
-        onClick={handleClick}
-      >
-        <div className="text-foreground">{item.icon}</div>
-        <div>
-          <div className="text-sm font-semibold">{item.title}</div>
-          {item.description && (
-            <p className="text-sm leading-snug text-muted-foreground">
-              {item.description}
-            </p>
-          )}
-        </div>
-      </a>
-    );
-  };
-
-  const renderMenuItem = (item: MenuItem) => {
-    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-      e.preventDefault();
-      if (item.url.startsWith("#")) {
-        const sectionId = item.url.substring(1);
-        handleSmoothScroll(sectionId);
-      } else {
-        window.location.href = item.url;
-      }
-    };
-
-    if (item.items) {
-      return (
-        <NavigationMenuItem key={item.title}>
-          <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-          <NavigationMenuContent className="bg-popover text-popover-foreground">
-            <div className="w-80 max-w-[calc(100vw-2rem)]">
-              {item.items.map((subItem) => (
-                <NavigationMenuLink asChild key={subItem.title}>
-                  <SubMenuLink item={subItem} />
-                </NavigationMenuLink>
-              ))}
-            </div>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-      );
-    }
-
-    return (
-      <NavigationMenuItem key={item.title}>
-        <NavigationMenuLink
-          href={item.url}
-          onClick={handleClick}
-          className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground cursor-pointer"
-        >
-          {item.title}
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-    );
-  };
-
-  const renderMobileMenuItem = (item: MenuItem, index: number) => {
-    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-      e.preventDefault();
-      if (item.url.startsWith("#")) {
-        const sectionId = item.url.substring(1);
-        handleSmoothScroll(sectionId);
-      } else {
-        setIsSheetOpen(false);
-        window.location.href = item.url;
-      }
-    };
-
-    if (item.items) {
-      return (
-        <AccordionItem
-          key={`mobile-${item.title}-${index}`}
-          value={item.title}
-          className="border-b-0"
-        >
-          <AccordionTrigger className="text-md py-0 font-semibold hover:no-underline">
-            {item.title}
-          </AccordionTrigger>
-          <AccordionContent className="mt-2">
-            {item.items.map((subItem, subIndex) => (
-              <SubMenuLink
-                key={`sub-${subItem.title}-${subIndex}`}
-                item={subItem}
-              />
-            ))}
-          </AccordionContent>
-        </AccordionItem>
-      );
-    }
-
-    return (
-      <SheetClose asChild key={`mobile-link-${item.title}-${index}`}>
-        <a
-          href={item.url}
-          onClick={handleClick}
-          className="text-md font-semibold cursor-pointer hover:text-gray-600 transition-colors"
-        >
-          {item.title}
-        </a>
-      </SheetClose>
-    );
-  };
-
-  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    if (logo.url.startsWith("#")) {
-      const sectionId = logo.url.substring(1);
-      handleSmoothScroll(sectionId);
-    } else {
-      window.location.href = logo.url;
-    }
-  };
-
-  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    handleSmoothScroll("footer");
-  };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <section className="sticky top-0 z-50 bg-white backdrop-blur-md border-b border-gray-200 shadow-sm">
-      <div className="py-4">
-        <div className="container mx-auto px-4 ">
-          <nav className="hidden justify-between lg:flex">
-            <div className="flex items-center gap-2">
-              <a
-                href={logo.url}
-                onClick={handleLogoClick}
-                className="cursor-pointer"
-              >
-                <img src={logo.src} className="max-h-8" alt={logo.alt} />
-              </a>
-              <span className="text-lg font-semibold tracking-tighter">
-                {logo.title}
-              </span>
-            </div>
-            <div className="flex items-center">
-              <NavigationMenu>
-                <NavigationMenuList>
-                  {menu.map((item) => renderMenuItem(item))}
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
-
-            <div className="flex gap-2 my-auto">
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="text-white bg-[#101828] hover:bg-[#2b3444]  hover:text-white"
-              >
-                <a
-                  href="#footer"
-                  onClick={handleContactClick}
-                  className="cursor-pointer"
-                >
-                  Kontakt
-                </a>
-              </Button>
-            </div>
-          </nav>
-
-          <div className="block lg:hidden">
-            <div className="flex items-center justify-between">
-              <a
-                href={logo.url}
-                onClick={handleLogoClick}
-                className="flex items-center gap-2 cursor-pointer"
-              >
-                <img src={logo.src} className="max-h-8" alt={logo.alt} />
-              </a>
-              <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                <SheetTrigger asChild>
-                  <Button variant="outline" size="icon">
-                    <Menu className="size-4" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent className="overflow-y-auto">
-                  <SheetHeader>
-                    <SheetTitle>
-                      <div className="flex items-center gap-2">
-                        <a
-                          href={logo.url}
-                          onClick={handleLogoClick}
-                          className="cursor-pointer"
-                        >
-                          <img
-                            src={logo.src}
-                            className="max-h-8"
-                            alt={logo.alt}
-                          />
-                        </a>
-                      </div>
-                    </SheetTitle>
-                  </SheetHeader>
-                  <div className="flex flex-col gap-6 p-4">
-                    <Accordion
-                      type="single"
-                      collapsible
-                      className="flex w-full flex-col gap-4"
-                    >
-                      {menu.map((item, index) =>
-                        renderMobileMenuItem(item, index)
-                      )}
-                    </Accordion>
-
-                    <div className="flex flex-col gap-3">
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="text-white bg-[#101828] hover:bg-[#2b3444]  hover:text-white"
-                      >
-                        <SheetClose asChild>
-                          <a
-                            href="#footer"
-                            onClick={handleContactClick}
-                            className="cursor-pointer"
-                          >
-                            Kontakt
-                          </a>
-                        </SheetClose>
-                      </Button>
-                    </div>
-                  </div>
-                </SheetContent>
-              </Sheet>
-            </div>
+    <header className="sticky top-0 z-50 w-full transition-all duration-200">
+      {/* Top micro-bar for direct contact info on larger viewports */}
+      <div className="hidden sm:block bg-[#1C1917] text-[#D6D3D1] text-xs py-2 px-6 border-b border-[#292524]">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div className="flex items-center space-x-6">
+            <span className="flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-[#C28E58]" />
+              Piškorevci (Đakovo), Slavonija
+            </span>
+            <span className="hidden md:inline text-[#78716C]">•</span>
+            <span className="hidden md:inline">Preko 20 godina obiteljske tradicije</span>
+          </div>
+          <div className="flex items-center space-x-5">
+            <a
+              href="tel:+38598373554"
+              className="flex items-center gap-1.5 hover:text-[#C28E58] transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5 text-[#C28E58]" />
+              098 373 554
+            </a>
+            <span className="text-[#78716C]">•</span>
+            <a
+              href="mailto:ist.piskorevci@gmail.com"
+              className="flex items-center gap-1.5 hover:text-[#C28E58] transition-colors"
+            >
+              <Mail className="w-3.5 h-3.5 text-[#C28E58]" />
+              ist.piskorevci@gmail.com
+            </a>
           </div>
         </div>
       </div>
-    </section>
+
+      {/* Main navigation bar */}
+      <nav
+        aria-label="Glavna navigacija"
+        className={`w-full bg-[#FDFBF7]/95 backdrop-blur-md transition-shadow duration-200 ${
+          scrolled ? "shadow-sm border-b border-[#E7DFD5]" : "border-b border-[#E7DFD5]/60"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between">
+          {/* Logo brand */}
+          <a
+            href="#top"
+            className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C28E58] rounded-md p-1"
+          >
+            <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0">
+              <Image
+                src="/ist-logo.png"
+                alt="Stolarija IST logo"
+                fill
+                sizes="40px"
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-lg sm:text-xl font-bold tracking-tight text-[#1C1917] group-hover:text-[#A8733E] transition-colors">
+                STOLARIJA IST
+              </span>
+              <span className="text-[10px] uppercase tracking-widest text-[#78716C] font-medium -mt-0.5">
+                Drvo &amp; Namještaj po mjeri
+              </span>
+            </div>
+          </a>
+
+          {/* Desktop links */}
+          <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="px-3.5 py-2 text-sm font-medium text-[#44403C] hover:text-[#1C1917] hover:bg-[#F4EFEB] rounded-md transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          {/* CTA Button */}
+          <div className="hidden lg:flex items-center">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-[#1C1917] text-[#FDFBF7] text-sm font-semibold hover:bg-[#C28E58] hover:text-[#1C1917] transition-all duration-200 shadow-sm"
+            >
+              <span>Zatražite ponudu</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+          </div>
+
+          {/* Mobile hamburger button */}
+          <div className="flex lg:hidden items-center">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2.5 rounded-md text-[#1C1917] hover:bg-[#F4EFEB] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C28E58]"
+              aria-expanded={mobileMenuOpen}
+              aria-label={mobileMenuOpen ? "Zatvori izbornik" : "Otvori navigacijski izbornik"}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile dropdown drawer */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-[#FDFBF7] border-b border-[#E7DFD5] px-4 pt-2 pb-6 space-y-2 animate-in fade-in slide-in-from-top-2 duration-150">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-2.5 text-base font-medium text-[#1C1917] hover:bg-[#F4EFEB] rounded-md transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+            <div className="pt-3 border-t border-[#E7DFD5] space-y-3">
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-md bg-[#1C1917] text-[#FDFBF7] font-semibold text-sm hover:bg-[#C28E58] hover:text-[#1C1917] transition-colors"
+              >
+                <span>Zatražite besplatnu ponudu</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+              <div className="flex justify-around text-xs text-[#57534E] pt-2">
+                <a href="tel:+38598373554" className="flex items-center gap-1.5 font-medium">
+                  <Phone className="w-3.5 h-3.5 text-[#C28E58]" /> 098 373 554
+                </a>
+                <a href="mailto:ist.piskorevci@gmail.com" className="flex items-center gap-1.5 font-medium">
+                  <Mail className="w-3.5 h-3.5 text-[#C28E58]" /> E-mail
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+      </nav>
+    </header>
   );
 };
-
-export { Navbar };

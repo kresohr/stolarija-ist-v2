@@ -1,179 +1,186 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
-interface ProjectImage {
-  src: string;
-  alt: string;
-  title?: string;
+import React, { useState } from "react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+
+interface ProjectItem {
+  id: string;
+  category: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  tags: string[];
 }
 
-interface ProjectsProps {
-  title?: string;
-  subtitle?: string;
-  images?: ProjectImage[];
-}
+const projectsList: ProjectItem[] = [
+  {
+    id: "kuhinje",
+    category: "kuhinje",
+    title: "Kuhinje po mjeri",
+    subtitle: "Moderna ergonomija u kombinaciji s prirodnim drvenim frontama i izdržljivim radnim pločama.",
+    image: "/project1.jpg",
+    tags: ["Hrast", "Ugradbeni elementi", "Soft-close okovi"],
+  },
+  {
+    id: "hotel-central",
+    category: "komercijalno",
+    title: "Uređenje Hotela Central Zagreb",
+    subtitle: "Kompletno drveno uređenje interijera, recepcije i hotelskih soba s najvišim standardima izdržljivosti.",
+    image: "/project3.jpg",
+    tags: ["Hotelijerski standard", "Masiv", "Arhitektonski nacrt"],
+  },
+  {
+    id: "paneli",
+    category: "vanjski-radovi",
+    title: "Vanjski pregradni paneli & sjenila",
+    subtitle: "Otporna drvena konstrukcija tretirana prirodnim zaštitnim uljima za vanjske uvjete i terase.",
+    image: "/project4.jpg",
+    tags: ["Vanjska zaštita", "UV otporno", "Moderna estetika"],
+  },
+  {
+    id: "stolovi",
+    category: "masiv",
+    title: "Stolovi od masivnog slavonskog hrasta",
+    subtitle: "Unikatne ploče s prirodnim rubom (live edge) ili čistim ravnim linijama za generacijsku upotrebu.",
+    image: "/project5.jpg",
+    tags: ["Masiv 40+ mm", "Ekološko ulje", "Čelične ili drvene noge"],
+  },
+  {
+    id: "vrata",
+    category: "vrata",
+    title: "Unutarnja i harmonika vrata",
+    subtitle: "Rješenja za optimizaciju prostora uz vrhunsku zvučnu izolaciju i precizno nalijeganje.",
+    image: "/project6.jpg",
+    tags: ["Zvučna izolacija", "Skriveni panti", "Ušteda prostora"],
+  },
+  {
+    id: "ormari",
+    category: "ormari",
+    title: "Ugradbeni ormari & garderobe",
+    subtitle: "Maksimalna iskoristivost od poda do stropa s promišljenim unutrašnjim rasporedom polica.",
+    image: "/project2.jpg",
+    tags: ["Klizni sustavi", "LED integracija", "Maksimalan prostor"],
+  },
+];
 
-const Projects = ({
-  title = "Projekti",
-  subtitle = "Pogledajte neke od naših radova i projekata",
-  images = [
-    {
-      src: "/project1.jpg",
-      alt: "Kuhinje po mjeri",
-      title: "Kuhinje po mjeri",
-    },
-    {
-      src: "/project3.jpg",
-      alt: "Projekt 3",
-      title: "Uređenje Hotela Central Zagreb",
-    },
-    {
-      src: "/project4.jpg",
-      alt: "Projekt 4",
-      title: "Vanjski pregradni paneli",
-    },
-    {
-      src: "/project5.jpg",
-      alt: "Drveni stolovi",
-      title: "Drveni stolovi",
-    },
-    {
-      src: "/project6.jpg",
-      alt: "Harmonika vrata",
-      title: "Harmonika vrata",
-    },
-    {
-      src: "/project2.jpg",
-      alt: "Ormari po mjeri",
-      title: "Ormari po mjeri",
-    },
-  ],
-}: ProjectsProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [autoPlay, setAutoPlay] = useState(true);
-  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+const categories = [
+  { label: "Svi radovi", value: "sve" },
+  { label: "Kuhinje", value: "kuhinje" },
+  { label: "Masivni namještaj", value: "masiv" },
+  { label: "Ormari & Vrata", value: "vrata-ormari" },
+  { label: "Hoteli & Poslovni", value: "komercijalno" },
+];
 
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-  };
+export const Projects = () => {
+  const [activeFilter, setActiveFilter] = useState("sve");
 
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
-
-  useEffect(() => {
-    if (autoPlay) {
-      autoPlayRef.current = setInterval(() => {
-        nextSlide();
-      }, 2000);
-    }
-
-    return () => {
-      if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current);
-      }
-    };
-  }, [autoPlay, currentIndex, nextSlide]);
-
-  const handleUserInteraction = (action: () => void) => {
-    setAutoPlay(false);
-    action();
-  };
+  const filteredProjects = projectsList.filter((project) => {
+    if (activeFilter === "sve") return true;
+    if (activeFilter === "vrata-ormari") return project.category === "vrata" || project.category === "ormari";
+    return project.category === activeFilter;
+  });
 
   return (
-    <section
-      id="projects"
-      className="h-[calc(100vh-68px)] md:h-[calc(100vh-73px)] flex items-center justify-center bg-white"
-    >
-      <div className="container mx-auto px-6 md:px-8 lg:px-12 xl:px-16">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
-              {title}
+    <section id="projects" className="py-16 sm:py-24 bg-[#FDFBF7] border-b border-[#E7DFD5]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div className="space-y-3">
+            <span className="text-xs uppercase tracking-widest text-[#78350F] font-bold">
+              Galerija izvedenih radova
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1C1917] tracking-tight">
+              Ponosni na svaki izrađeni detalj
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto">
-              {subtitle}
+            <p className="text-base sm:text-lg text-[#57534E] max-w-2xl">
+              Pregledajte stvarne fotografije naših projekata – od obiteljskih kuhinja i blagovaonskih stolova do cjelovitih hotelskih interijera.
             </p>
           </div>
 
-          <div className="relative max-w-4xl mx-auto">
-            <div className="relative overflow-hidden rounded-lg shadow-lg bg-gray-100 w-64 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] aspect-square mx-auto">
-              <div
-                className="flex transition-transform duration-500 ease-in-out h-full"
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-              >
-                {images.map((image, index) => (
-                  <div key={index} className="w-full h-full flex-shrink-0">
-                    <div className="relative w-full h-full">
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="absolute inset-0 w-full h-full object-cover"
-                        loading={index === 0 ? "eager" : "lazy"}
-                      />
-                      {image.title && (
-                        <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-4">
-                          <h3 className="text-lg md:text-xl font-semibold">
-                            {image.title}
-                          </h3>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#78350F] hover:text-[#C28E58] transition-colors"
+          >
+            <span>Trebate sličan projekt? Javite nam se</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+
+        {/* Filter Pills */}
+        <div className="flex flex-wrap gap-2 pb-8">
+          {categories.map((cat) => (
+            <button
+              key={cat.value}
+              type="button"
+              onClick={() => setActiveFilter(cat.value)}
+              className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${
+                activeFilter === cat.value
+                  ? "bg-[#1C1917] text-[#FDFBF7] shadow-sm"
+                  : "bg-[#F4EFEB] text-[#57534E] hover:bg-[#EAE2D8] hover:text-[#1C1917]"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Responsive Grid with natural aspect ratios */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProjects.map((project) => (
+            <article
+              key={project.id}
+              className="group flex flex-col bg-[#FFFFFF] rounded-xl overflow-hidden border border-[#E7DFD5] shadow-sm hover:shadow-lg transition-all duration-300"
+            >
+              {/* Image Frame */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#F4EFEB]">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                />
               </div>
 
-              <button
-                onClick={() => handleUserInteraction(prevSlide)}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 md:p-3 shadow-lg transition-all duration-200 hover:scale-110"
-                aria-label="Prethodna slika"
-              >
-                <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-              </button>
+              {/* Content Block */}
+              <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div className="space-y-2">
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className="inline-block text-[11px] font-medium px-2 py-0.5 rounded bg-[#F4EFEB] text-[#78716C]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 className="text-xl font-bold text-[#1C1917] group-hover:text-[#A8733E] transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-[#57534E] leading-relaxed">
+                    {project.subtitle}
+                  </p>
+                </div>
 
-              <button
-                onClick={() => handleUserInteraction(nextSlide)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 md:p-3 shadow-lg transition-all duration-200 hover:scale-110"
-                aria-label="Sljedeća slika"
-              >
-                <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-              </button>
-            </div>
-
-            <div className="flex justify-center mt-6 space-x-2">
-              {images.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleUserInteraction(() => goToSlide(index))}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                    index === currentIndex
-                      ? "bg-gray-800 scale-110"
-                      : "bg-gray-300 hover:bg-gray-400"
-                  }`}
-                  aria-label={`Idi na sliku ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            <div className="text-center mt-4 text-gray-600">
-              <span className="text-sm md:text-base">
-                {currentIndex + 1} / {images.length}
-              </span>
-            </div>
-          </div>
+                <div className="pt-3 border-t border-[#F4EFEB]">
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1C1917] group-hover:text-[#C28E58] transition-colors"
+                  >
+                    <span>Zatražite ponudu za sličan rad</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
+
       </div>
     </section>
   );
 };
-
-export { Projects };

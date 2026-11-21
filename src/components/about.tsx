@@ -1,76 +1,91 @@
 import React from "react";
+import { TreePine, Hammer, ShieldCheck } from "lucide-react";
 
-interface AboutProps {
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  features?: {
-    title: string;
-    description: string;
-    icon?: React.ReactNode;
-  }[];
-}
+const pillars = [
+  {
+    icon: TreePine,
+    title: "Prirodno i probrano drvo",
+    description:
+      "Koristimo prvorazredni slavonski hrast, jasen, bukvu i orah, pažljivo sušeno i pripremljeno za dugovječnost bez deformacija.",
+  },
+  {
+    icon: Hammer,
+    title: "Tradicionalna izrada & preciznost",
+    description:
+      "Svaki spoj i obrada prolaze kroz ruke iskusnih majstora. Ne radimo serijski; svaki komad je unikatan projekt izrađen točno po vašem prostoru.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Poštivanje rokova i garancija",
+    description:
+      "Dogovoreni termin ugradnje za nas je obveza. Iza svakog ugrađenog elementa stojimo dugogodišnjim jamstvom kvalitete.",
+  },
+];
 
-const About = ({
-  title = "O nama",
-  subtitle = "Više od 20 godina iskustva u proizvodnji stolarije",
-  description = "Stolarija IST je obiteljska tvrtka koja se bavi proizvodnjom i ugradnjom kvalitetne drvene stolarije. Koristimo najkvalitetnije materijale i moderne tehnike kako bi vašem domu ili poslovnom prostoru pružili toplinu, sigurnost i eleganciju.",
-  features = [
-    {
-      title: "Kvaliteta",
-      description:
-        "Koristimo samo najkvalitetnije materijale i moderne tehnike izrade",
-    },
-    {
-      title: "Iskustvo",
-      description:
-        "Više od 20 godina iskustva u proizvodnji i ugradnji stolarije",
-    },
-    {
-      title: "Pouzdanost",
-      description:
-        "Garantiramo kvalitetu našeg rada i poštujemo dogovorene rokove",
-    },
-  ],
-}: AboutProps) => {
+export const About = () => {
   return (
-    <section
-      id="about"
-      className="h-[calc(100vh-68px)] md:h-[calc(100vh-73px)] flex items-center justify-center bg-gray-50"
-    >
-      <div className="container mx-auto px-6 md:px-8 lg:px-12 xl:px-16">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-4 md:mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:my-6">
-              {title}
-            </h2>
-            <p className="hidden show-on-tall-screen text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 md:mb-8">
-              {subtitle}
-            </p>
-            <p className="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
-              {description}
-            </p>
-          </div>
+    <section id="about" className="py-16 sm:py-24 bg-[#F4EFEB] border-b border-[#E7DFD5]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+          <span className="text-xs uppercase tracking-widest text-[#78350F] font-bold">
+            Tradicija &amp; Vrijednosti
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1C1917] tracking-tight">
+            Obiteljska stolarija s tradicijom dužom od dva desetljeća
+          </h2>
+          <p className="text-base sm:text-lg text-[#57534E] leading-relaxed">
+            Stolarija IST nastala je u Piškorevcima s jednostavnim ciljem: vratiti pravu vrijednost i trajnost drvenom namještaju. Danas opremamo obiteljske domove, hotele i poslovne prostore diljem Hrvatske, čuvajući duh izvorne slavonske drvodjeljske tradicije.
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12">
-            {features.map((feature, index) => (
-              <div key={index} className="text-center">
-                {feature.icon && (
-                  <div className="flex justify-center mb-4">{feature.icon}</div>
-                )}
-                <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3 md:mb-4">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
+        {/* 3 Value Pillars */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {pillars.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={idx}
+                className="bg-[#FDFBF7] p-8 rounded-xl border border-[#E7DFD5] shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-between"
+              >
+                <div className="space-y-4">
+                  <div className="w-12 h-12 rounded-lg bg-[#F4EFEB] border border-[#E7DFD5] flex items-center justify-center text-[#78350F]">
+                    <Icon className="w-6 h-6 text-[#C28E58]" />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#1C1917]">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-[#57534E] leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
               </div>
-            ))}
+            );
+          })}
+        </div>
+
+        {/* Key Statistics Strip */}
+        <div className="mt-14 pt-12 border-t border-[#E7DFD5] grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div className="space-y-1">
+            <p className="text-3xl sm:text-4xl font-extrabold font-serif text-[#78350F]">20+</p>
+            <p className="text-xs sm:text-sm text-[#78716C] font-medium">Godina iskustva</p>
+          </div>
+          <div className="space-y-1">
+            <p className="text-3xl sm:text-4xl font-extrabold font-serif text-[#78350F]">500+</p>
+            <p className="text-xs sm:text-sm text-[#78716C] font-medium">Završenih projekata</p>
+          </div>
+          <div className="space-y-1">
+            <p className="text-3xl sm:text-4xl font-extrabold font-serif text-[#78350F]">100%</p>
+            <p className="text-xs sm:text-sm text-[#78716C] font-medium">Prirodno drvo</p>
+          </div>
+          <div className="space-y-1">
+            <p className="text-3xl sm:text-4xl font-extrabold font-serif text-[#78350F]">1</p>
+            <p className="text-xs sm:text-sm text-[#78716C] font-medium">Obiteljski tim</p>
           </div>
         </div>
+
       </div>
     </section>
   );
 };
-
-export { About };
