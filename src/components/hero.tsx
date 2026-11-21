@@ -31,7 +31,7 @@ export const Hero = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Ruler className="w-4 h-4 text-[#C28E58] flex-shrink-0" />
-                <span>Besplatna izmjera</span>
+                <span>Besplatno mjerenje</span>
               </div>
               <div className="flex items-center gap-2 col-span-2 sm:col-span-1">
                 <Shield className="w-4 h-4 text-[#C28E58] flex-shrink-0" />

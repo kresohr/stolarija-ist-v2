@@ -14,7 +14,7 @@ export const Contact = () => {
             {/* Left Column: Direct Call to Action */}
             <div className="lg:col-span-7 space-y-6">
               <span className="text-xs uppercase tracking-widest text-[#C28E58] font-bold">
-                Besplatna ponuda i izmjera
+                Besplatna ponuda i mjerenje
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
                 Planirate uređenje doma ili trebate namještaj po mjeri?
@@ -61,7 +61,7 @@ export const Contact = () => {
                 <div>
                   <h4 className="text-sm font-semibold text-white">Radno vrijeme radionice</h4>
                   <p className="text-sm text-[#A8A29E] mt-0.5">Ponedjeljak – Petak: 08:00 – 17:00</p>
-                  <p className="text-xs text-[#78716C] mt-0.5">Subotom po dogovoru za izmjere na terenu</p>
+                  <p className="text-xs text-[#78716C] mt-0.5">Subotom po dogovoru za mjerenja na terenu</p>
                 </div>
               </div>
 

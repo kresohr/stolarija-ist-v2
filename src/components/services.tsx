@@ -34,7 +34,7 @@ const servicesList = [
   },
   {
     icon: Sparkles,
-    title: "Besplatno savjetovanje i izmjera",
+    title: "Besplatno savjetovanje i mjerenje",
     description:
       "Stručni savjeti pri odabiru materijala, tehnička podrška i precizno mjerenje na licu mjesta prije same izrade.",
   },
